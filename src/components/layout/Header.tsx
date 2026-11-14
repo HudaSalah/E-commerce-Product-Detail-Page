@@ -1,6 +1,6 @@
 import { ChevronDown, Heart, Search, User } from 'lucide-react'
 import { CartButton } from '../cart/CartButton'
-
+import logo from '../../assets/logo.png'
 export function Header() {
   return (
     <header>
@@ -10,7 +10,7 @@ export function Header() {
 
       <div className="mx-auto flex max-w-5xl items-center justify-between border-b border-dashed border-gray-300 px-4 py-5">
         <a href="/" className="text-lg font-semibold tracking-[0.25em]">
-          ACHILLES
+          <img src={logo} alt="John Lewis & Partners" className="h-8 w-auto" />
         </a>
 
         <nav className="flex items-center gap-1 md:gap-4">
