@@ -70,7 +70,7 @@ export function ProductInfo({ product, onImageChange }: ProductInfoProps) {
     <section className="flex flex-col gap-5">
       <div>
         <p className="mb-1 text-sm text-gray-500">{product.categories[0]?.name}</p>
-        <h1 className="text-2xl font-bold md:text-3xl">{product.name}</h1>
+        <h1 className="text-2xl font-semibold md:text-4xl">{product.name}</h1>
       </div>
 
       <PriceTag price={variant?.price ?? product.price} salePrice={salePrice} />
@@ -78,20 +78,20 @@ export function ProductInfo({ product, onImageChange }: ProductInfoProps) {
       <hr className="border-dashed border-gray-300" />
 
       <div>
-        <h2 className="mb-2 font-semibold">Description:</h2>
+        <h2 className="mb-2 text-xl font-semibold">Description:</h2>
 
         {expanded ? (
           <>
             <div
-              className="prose prose-sm max-w-none text-gray-600 prose-p:my-2 prose-ul:my-2 prose-li:my-0"
+              className="prose prose-base max-w-none text-gray-600 prose-p:my-2 prose-ul:my-2 prose-li:my-0"
               dangerouslySetInnerHTML={{ __html: cleanDescription(product.description) }}
             />
-            <button type="button" onClick={() => setExpanded(false)} className="mt-1 text-sm font-semibold">
+            <button type="button" onClick={() => setExpanded(false)} className="mt-1 text-base font-semibold">
               See Less
             </button>
           </>
         ) : (
-          <p className="text-sm leading-relaxed text-gray-600">
+          <p className="text-base leading-relaxed text-gray-600">
             {toPlainText(product.description).slice(0, 180)}…{' '}
             <button type="button" onClick={() => setExpanded(true)} className="font-semibold text-black">
               See More...
@@ -130,24 +130,24 @@ export function ProductInfo({ product, onImageChange }: ProductInfoProps) {
         </p>
       )}
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <button
-          type="button"
-          onClick={handleAddToCart}
-          disabled={!inStock}
-          className="h-12 flex-1 rounded-lg bg-black font-semibold text-white disabled:opacity-40"
-        >
-          {added ? 'Added ✓' : 'Add To Cart'}
-        </button>
-        <button
-          type="button"
-          onClick={handleCheckout}
-          disabled={!inStock}
-          className="h-12 rounded-lg border border-gray-300 px-8 font-medium disabled:opacity-40 sm:w-44"
-        >
-          Checkout Now
-        </button>
-      </div>
+     <div className="flex flex-col items-start gap-3 sm:flex-row">
+      <button
+        type="button"
+        onClick={handleAddToCart}
+        disabled={!inStock}
+        className="h-12 w-full rounded-lg bg-black text-base font-semibold text-white disabled:opacity-40 sm:flex-1 md:h-14 md:text-xl"
+      >
+        {added ? 'Added ✓' : 'Add To Cart'}
+      </button>
+      <button
+        type="button"
+        onClick={handleCheckout}
+        disabled={!inStock}
+       className="h-12 shrink-0 whitespace-nowrap rounded-lg border border-gray-300 px-8 text-base font-semibold disabled:opacity-40 md:h-14 md:text-xl"
+      >
+        Checkout Now
+      </button>
+    </div>
 
       <a href="#" className="self-start text-sm underline">
         Delivery T&C

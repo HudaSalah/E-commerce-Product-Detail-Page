@@ -38,7 +38,7 @@ export function ProductPage() {
     <>
       <Breadcrumb items={['Homepage', product.categories[0]?.name ?? 'Shop', product.name]} />
 
-      <main className="mx-auto grid max-w-5xl gap-8 px-4 pb-12 md:grid-cols-[2fr_3fr] md:gap-12">
+      <main className="mx-auto grid max-w-5xl gap-8 px-4 pb-12 md:grid-cols-2 md:gap-12">
         <ImageGallery
           images={images}
           alt={product.name}
@@ -47,6 +47,7 @@ export function ProductPage() {
         />
         <ProductInfo product={product} onImageChange={handleImageChange} />
       </main>
+      <hr className="mx-auto max-w-5xl border-dashed border-gray-300" />
     </>
   )
 }

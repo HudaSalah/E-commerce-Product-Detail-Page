@@ -9,10 +9,10 @@ export function PriceTag({ price, salePrice }: PriceTagProps) {
   return (
     <div className="flex items-baseline gap-3">
       {hasSale && (
-        <span className="text-gray-400 line-through">${price}</span>
+        <span className="text-gray-400 line-through text-lg">${price}</span>
       )}
       
-      <span className="text-2xl font-bold">
+      <span className="text-[28px] font-semibold">
         ${hasSale ? salePrice : price}
       </span>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { MouseEvent } from 'react'
+import type { PointerEvent , MouseEvent } from 'react'
 import { ChevronLeft, ChevronRight, Heart, Share } from 'lucide-react'
 
 interface ImageGalleryProps {
@@ -36,6 +36,15 @@ export function ImageGallery({ images, alt, activeIndex, onChange }: ImageGaller
     setZoomOrigin(`${x}% ${y}%`)
   }
 
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+  if (e.pointerType !== 'mouse') return
+
+  const rect = e.currentTarget.getBoundingClientRect()
+  const x = ((e.clientX - rect.left) / rect.width) * 100
+  const y = ((e.clientY - rect.top) / rect.height) * 100
+  setZoomOrigin(`${x}% ${y}%`)
+}
+
   const showPrevious = () => onChange((activeIndex - 1 + images.length) % images.length)
   const showNext = () => onChange((activeIndex + 1) % images.length)
 
@@ -46,11 +55,13 @@ export function ImageGallery({ images, alt, activeIndex, onChange }: ImageGaller
           className="aspect-[3/4] flex-1 overflow-hidden rounded-2xl bg-gray-100"
           onMouseMove={handleMouseMove}
           onMouseLeave={() => setZoomOrigin(null)}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={() => setZoomOrigin(null)}
         >
           <img
             src={images[activeIndex]}
             alt={alt}
-            className="h-full w-full object-cover transition-transform duration-300"
+            className="h-full w-full object-contain mix-blend-multiply transition-transform duration-300"
             style={{
               transform: zoomOrigin ? 'scale(2)' : undefined,
               transformOrigin: zoomOrigin ?? undefined,
@@ -85,7 +96,7 @@ export function ImageGallery({ images, alt, activeIndex, onChange }: ImageGaller
       </div>
       </div>
 
-      <ul className="grid grid-cols-5 gap-3">
+      <ul className="grid grid-cols-5 gap-3 pr-[52px]">
         {images.map((src, index) => (
           <li key={src}>
             <button
@@ -97,7 +108,7 @@ export function ImageGallery({ images, alt, activeIndex, onChange }: ImageGaller
                 index === activeIndex ? 'border-black' : 'border-transparent'
               }`}
             >
-              <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
+              <img src={src} alt="" loading="lazy" className="h-full w-full object-cover mix-blend-multiply" />
             </button>
           </li>
         ))}
