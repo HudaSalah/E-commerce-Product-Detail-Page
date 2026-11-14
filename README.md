@@ -4,6 +4,8 @@ E-commerce product page built for the ElegantSoft frontend task.
 
 **Live demo:** https://extraordinary-fox-cad57b.netlify.app/
 
+**Live demo:** https://hudasalah.github.io/E-commerce-Product-Detail-Page/
+
 ## Tech stack
 
 React 19, TypeScript, Vite, Tailwind CSS v4, Zustand + Immer, TanStack Query, Vitest + Testing Library.
