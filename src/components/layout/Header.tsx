@@ -10,7 +10,7 @@ export function Header() {
       </p>
 
       <div className="mx-auto flex max-w-5xl items-center justify-between border-b border-dashed border-gray-300 px-4 py-5">
-        <a href="/" className="text-lg font-semibold tracking-[0.25em]">
+        <a href={import.meta.env.BASE_URL} className="text-lg font-semibold tracking-[0.25em]">
           <img src={logo} alt="John Lewis & Partners" className="h-8 w-auto" />
         </a>
 
