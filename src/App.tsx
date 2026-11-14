@@ -2,6 +2,7 @@ import { ImageGallery } from './components/gallery/ImageGallery'
 import { PriceTag } from './components/product/PriceTag'
 import { ProductInfo } from './components/product/ProductInfo'
 import { useProduct } from './hooks/useProduct'
+import { getGalleryImages } from './lib/images'
 
 export default function App() {
   const { data: product, isPending, isError, refetch } = useProduct()
@@ -22,8 +23,8 @@ export default function App() {
   }
 
   return (
-    <main className="mx-auto grid max-w-6xl gap-8 p-4 md:grid-cols-2">
-      <ImageGallery images={[product.thumb, ...product.images]} alt={product.name} />
+    <main className="mx-auto grid max-w-6xl gap-8 p-4 md:grid-cols-[2fr_3fr]">
+      <ImageGallery images={getGalleryImages(product)} alt={product.name} />
       {/* <PriceTag price={product.price} salePrice={product.sale_price} /> */}
       <ProductInfo product={product} />
     </main>

@@ -35,7 +35,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
         />
       </div>
 
-      <ul className="flex gap-3 overflow-x-auto">
+      <ul className="grid grid-cols-5 gap-3">
         {images.map((src, index) => (
           <li key={src}>
             <button
@@ -43,7 +43,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
               onClick={() => setActiveIndex(index)}
               aria-label={`Show image ${index + 1}`}
               aria-current={index === activeIndex}
-              className={`h-20 w-20 overflow-hidden rounded-lg border-2 ${
+              className={`aspect-square w-full overflow-hidden rounded-lg border-2 ${
                 index === activeIndex ? 'border-black' : 'border-transparent'
               }`}
             >

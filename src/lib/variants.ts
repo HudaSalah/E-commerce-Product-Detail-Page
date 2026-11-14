@@ -3,6 +3,15 @@ import type { Product, Variant } from '../types/product'
 // { color: 'brown', size: '40' }
 export type Selection = Record<string, string>
 
+export function getDefaultSelection(product: Product): Selection {
+  const variant = product.variants.find((v) => isVariantInStock(product, v))
+  if (!variant) return {}
+
+  return Object.fromEntries(
+    variant.variation_props.map((vp) => [vp.variation, vp.variation_prop]),
+  )
+}
+
 export function findVariant(product: Product, selection: Selection): Variant | undefined {
   const allChosen = Object.keys(selection).length === product.variations.length
   if (!allChosen) return undefined
