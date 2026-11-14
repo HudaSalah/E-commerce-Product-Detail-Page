@@ -24,7 +24,7 @@ export default function App() {
   return (
     <main className="mx-auto grid max-w-6xl gap-8 p-4 md:grid-cols-2">
       <ImageGallery images={[product.thumb, ...product.images]} alt={product.name} />
-      <PriceTag price={product.price} salePrice={product.sale_price} />
+      {/* <PriceTag price={product.price} salePrice={product.sale_price} /> */}
       <ProductInfo product={product} />
     </main>
   )
