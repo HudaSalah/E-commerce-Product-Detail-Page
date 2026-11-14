@@ -1,11 +1,14 @@
+import { useMemo, useState } from 'react'
 import { ImageGallery } from '../components/gallery/ImageGallery'
-import { PriceTag } from '../components/product/PriceTag'
+import { Breadcrumb } from '../components/layout/Breadcrumb'
 import { ProductInfo } from '../components/product/ProductInfo'
 import { useProduct } from '../hooks/useProduct'
 import { getGalleryImages } from '../lib/images'
 
-export default function App() {
+export function ProductPage() {
   const { data: product, isPending, isError, refetch } = useProduct()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const images = useMemo(() => (product ? getGalleryImages(product) : []), [product])
 
   if (isPending) {
     return <p className="p-8 text-center">Loading…</p>
@@ -15,18 +18,35 @@ export default function App() {
     return (
       <div className="p-8 text-center">
         <p className="mb-4">Something went wrong while loading the product.</p>
-        <button onClick={() => refetch()} className="rounded bg-black px-4 py-2 text-white">
+        <button
+          type="button"
+          onClick={() => refetch()}
+          className="rounded-lg bg-black px-4 py-2 text-white"
+        >
           Try again
         </button>
       </div>
     )
   }
 
+  const handleImageChange = (image: string) => {
+    const index = images.indexOf(image)
+    if (index >= 0) setActiveIndex(index)
+  }
+
   return (
-    <main className="mx-auto grid max-w-6xl gap-8 p-4 md:grid-cols-[2fr_3fr]">
-      <ImageGallery images={getGalleryImages(product)} alt={product.name} />
-      {/* <PriceTag price={product.price} salePrice={product.sale_price} /> */}
-      <ProductInfo product={product} />
-    </main>
+    <>
+      <Breadcrumb items={['Homepage', product.categories[0]?.name ?? 'Shop', product.name]} />
+
+      <main className="mx-auto grid max-w-5xl gap-8 px-4 pb-12 md:grid-cols-[2fr_3fr] md:gap-12">
+        <ImageGallery
+          images={images}
+          alt={product.name}
+          activeIndex={activeIndex}
+          onChange={setActiveIndex}
+        />
+        <ProductInfo product={product} onImageChange={handleImageChange} />
+      </main>
+    </>
   )
 }

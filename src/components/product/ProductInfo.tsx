@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import type { Product } from '../../types/product'
 import type { Selection } from '../../lib/variants'
+import { cleanDescription, toPlainText } from '../../lib/format'
 import { findVariant, getDefaultSelection, getEffectivePrice, isOptionAvailable } from '../../lib/variants'
 import { useCartStore } from '../../store/cartStore'
 import { PriceTag } from './PriceTag'
 import { QuantitySelector } from './QuantitySelector'
 import { VariationSelector } from './VariationSelector'
-import { cleanDescription, toPlainText } from '../../lib/format'
 
 interface ProductInfoProps {
   product: Product
+  onImageChange?: (image: string) => void
 }
 
-export function ProductInfo({ product }: ProductInfoProps) {
+export function ProductInfo({ product, onImageChange }: ProductInfoProps) {
   const [selection, setSelection] = useState<Selection>(() => getDefaultSelection(product))
   const [quantity, setQuantity] = useState(1)
   const [error, setError] = useState('')
@@ -24,6 +25,12 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
   const inStock = !product.track_stock || product.quantity > 0
   const variant = findVariant(product, selection)
+  const salePrice = variant?.sale_price || product.sale_price
+
+  const imageVariation = product.variations.find((variation) => variation.type === 'image')
+  const selectedImage = imageVariation?.props.find(
+    (prop) => prop.name === selection[imageVariation.name],
+  )?.value
 
   const handleAddToCart = () => {
     if (!variant) {
@@ -40,7 +47,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
         id: variant.id,
         productId: product.id,
         name: product.name,
-        image: product.thumb,
+        image: selectedImage ?? product.thumb,
         price: getEffectivePrice({ price: variant.price, sale_price: salePrice }),
         options: selection,
       },
@@ -58,8 +65,6 @@ export function ProductInfo({ product }: ProductInfoProps) {
       toggleCart(true)
     }
   }
-
-  const salePrice = variant?.sale_price || product.sale_price
 
   return (
     <section className="flex flex-col gap-5">
@@ -100,9 +105,12 @@ export function ProductInfo({ product }: ProductInfoProps) {
           key={variation.id}
           variation={variation}
           selected={selection[variation.name]}
-          onSelect={(propName) =>
+          onSelect={(propName) => {
             setSelection((prev) => ({ ...prev, [variation.name]: propName }))
-          }
+
+            const image = variation.props.find((prop) => prop.name === propName)?.value
+            if (image) onImageChange?.(image)
+          }}
           isAvailable={(propName) =>
             isOptionAvailable(product, selection, variation.name, propName)
           }
@@ -140,6 +148,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
           Checkout Now
         </button>
       </div>
+
+      <a href="#" className="self-start text-sm underline">
+        Delivery T&C
+      </a>
     </section>
   )
 }
