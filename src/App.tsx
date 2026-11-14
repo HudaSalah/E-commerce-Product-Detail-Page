@@ -1,3 +1,6 @@
+import { ImageGallery } from './components/gallery/ImageGallery'
+import { PriceTag } from './components/product/PriceTag'
+import { ProductInfo } from './components/product/ProductInfo'
 import { useProduct } from './hooks/useProduct'
 
 export default function App() {
@@ -19,8 +22,10 @@ export default function App() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl p-4">
-      <h1 className="text-2xl font-semibold">{product.name}</h1>
+    <main className="mx-auto grid max-w-6xl gap-8 p-4 md:grid-cols-2">
+      <ImageGallery images={[product.thumb, ...product.images]} alt={product.name} />
+      <PriceTag price={product.price} salePrice={product.sale_price} />
+      <ProductInfo product={product} />
     </main>
   )
 }
