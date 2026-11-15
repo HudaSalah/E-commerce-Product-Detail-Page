@@ -4,6 +4,8 @@ import { Breadcrumb } from '../components/layout/Breadcrumb'
 import { ProductInfo } from '../components/product/ProductInfo'
 import { useProduct } from '../hooks/useProduct'
 import { getGalleryImages } from '../lib/images'
+import { relatedProducts } from '../data/products'
+import { ProductSection } from '../components/product/ProductSection'
 
 export function ProductPage() {
   const { data: product, isPending, isError, refetch } = useProduct()
@@ -47,7 +49,9 @@ export function ProductPage() {
         />
         <ProductInfo product={product} onImageChange={handleImageChange} />
       </main>
-      <hr className="mx-auto max-w-5xl border-dashed border-gray-300" />
+      {/* <hr className="mx-auto max-w-5xl border-dashed border-gray-300" /> */}
+
+      <ProductSection title="Related Product" products={relatedProducts} />
     </>
   )
 }

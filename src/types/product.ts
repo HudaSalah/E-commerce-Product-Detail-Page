@@ -48,3 +48,13 @@ export interface Product {
   variants: Variant[]
   categories: Category[]
 }
+
+export interface ProductSummary {
+  id: string
+  brand: string
+  name: string
+  price: number
+  rating: number
+  sold: number
+  image: string
+}
