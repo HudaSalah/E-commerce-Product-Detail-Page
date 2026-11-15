@@ -6,6 +6,7 @@ import { useProduct } from '../hooks/useProduct'
 import { getGalleryImages } from '../lib/images'
 import { relatedProducts } from '../data/products'
 import { ProductSection } from '../components/product/ProductSection'
+import { ReviewsSection } from '../components/reviews/ReviewsSection'
 
 export function ProductPage() {
   const { data: product, isPending, isError, refetch } = useProduct()
@@ -52,6 +53,7 @@ export function ProductPage() {
       {/* <hr className="mx-auto max-w-5xl border-dashed border-gray-300" /> */}
 
       <ProductSection title="Related Product" products={relatedProducts} />
+      <ReviewsSection />
     </>
   )
 }
