@@ -11,7 +11,7 @@ export function ReviewSummary({ summary }: ReviewSummaryProps) {
 
   return (
     <div className="grid gap-6 rounded-xl border border-dashed border-gray-300 p-6 lg:grid-cols-[320px_1fr] lg:gap-10">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4  self-start">
         <div
           className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full"
           style={{ background: `conic-gradient(#fb923c ${ringPercent}%, #fed7aa 0)` }}

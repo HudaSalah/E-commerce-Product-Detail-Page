@@ -4,7 +4,7 @@ import { Breadcrumb } from '../components/layout/Breadcrumb'
 import { ProductInfo } from '../components/product/ProductInfo'
 import { useProduct } from '../hooks/useProduct'
 import { getGalleryImages } from '../lib/images'
-import { relatedProducts } from '../data/products'
+import { popularProducts, relatedProducts } from '../data/products'
 import { ProductSection } from '../components/product/ProductSection'
 import { ReviewsSection } from '../components/reviews/ReviewsSection'
 
@@ -54,6 +54,7 @@ export function ProductPage() {
 
       <ProductSection title="Related Product" products={relatedProducts} />
       <ReviewsSection />
+      <ProductSection title="Popular this week" products={popularProducts} />
     </>
   )
 }
