@@ -24,3 +24,5 @@ export const reviews: Review[] = [
   { id: 'r-4', rating: 5, text: 'This is amazing product I have.', date: 'July 7, 2020 10:14 AM', author: 'Ronald Richards', avatar: product4, likes: 124, liked: false },
 ]
 
+export const productStats = { sold: 1238, rating: 4.5 }
+

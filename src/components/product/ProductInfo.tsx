@@ -7,6 +7,8 @@ import { useCartStore } from '../../store/cartStore'
 import { PriceTag } from './PriceTag'
 import { QuantitySelector } from './QuantitySelector'
 import { VariationSelector } from './VariationSelector'
+import { productStats } from '../../data/reviews'
+import { Star } from 'lucide-react'
 
 interface ProductInfoProps {
   product: Product
@@ -73,8 +75,16 @@ export function ProductInfo({ product, onImageChange }: ProductInfoProps) {
         <h1 className="text-2xl font-semibold md:text-4xl">{product.name}</h1>
       </div>
 
-      <PriceTag price={variant?.price ?? product.price} salePrice={salePrice} />
+      <div className="flex flex-wrap items-center justify-between gap-3">
+          <PriceTag price={variant?.price ?? product.price} salePrice={salePrice} />
 
+        <p className="flex items-center gap-2 text-gray-500">
+          <span>{productStats.sold.toLocaleString('en-US')} Sold</span>
+          <span aria-hidden="true">·</span>
+          <Star size={18} aria-hidden="true" className="fill-orange-400 text-orange-400" />
+          <span className="text-xl font-semibold text-black">{productStats.rating.toFixed(1)}</span>
+        </p>
+      </div>
       <hr className="border-dashed border-gray-300" />
 
       <div>
